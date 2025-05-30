@@ -1,0 +1,79 @@
+#[cfg(test)]
+mod tests {{
+    use super::*;
+
+    #[test]
+    fn test_xgboost_predict_basic() {{
+        // Test with sample feature vector (values already scaled by 10^10)
+        let test_features = vec![
+            220286213,   // Example scaled values
+            450000000,
+            -180000000,
+            100000000,
+            -50000000
+        ];
+        
+        // Extend with zeros if we need more features
+        let mut features = test_features;
+        features.resize({num_features}, 0);
+        
+        let prediction = xgboost_predict(&features);
+        
+        // Basic sanity checks
+        assert!(prediction.abs() < 1000000000000); // Reasonable range for scaled values
+        println!("Prediction for test case: {{}} (scaled)", prediction);
+        println!("Prediction as float: {{:.6}}", from_fixed_point(prediction));
+    }}
+    
+    #[test]
+    fn test_xgboost_predict_zeros() {{
+        // Test with all zero features
+        let features = vec![0i64; {num_features}];
+        let prediction = xgboost_predict(&features);
+        
+        // Should return some prediction for zero input
+        println!("Prediction for zero input: {{}} (scaled)", prediction);
+        println!("Prediction as float: {{:.6}}", from_fixed_point(prediction));
+    }}
+    
+    #[test] 
+    fn test_fixed_point_conversion() {{
+        // Test fixed-point conversion functions
+        let original_float = 0.0220286213;
+        let scaled_value = to_fixed_point(original_float);
+        let back_to_float = from_fixed_point(scaled_value);
+        
+        // Should round-trip correctly (within precision limits)
+        let diff = (original_float - back_to_float).abs();
+        assert!(diff < 1e-9); // Allow for small rounding errors
+        
+        println!("Round-trip test: {{}} -> {{}} -> {{}}", original_float, scaled_value, back_to_float);
+        
+        // Test from_scaled_i64 function
+        let test_scaled = 220286213i64;
+        let result = from_scaled_i64(test_scaled);
+        assert_eq!(test_scaled, result);
+        println!("from_scaled_i64 test: {{}} -> {{}}", test_scaled, result);
+    }}
+    
+    #[test]
+    fn test_fixed_point_arithmetic() {{
+        // Test fixed-point arithmetic functions
+        let a = to_fixed_point(1.5);  // 15000000000
+        let b = to_fixed_point(2.3);  // 23000000000
+        
+        // Test less-than-or-equal
+        assert!(fixed_le(a, b));
+        assert!(!fixed_le(b, a));
+        assert!(fixed_le(a, a));
+        
+        // Test addition
+        let sum = fixed_add(a, b);
+        let expected = to_fixed_point(3.8);
+        assert_eq!(sum, expected);
+        
+        println!("Arithmetic test: {{}} + {{}} = {{}} (expected {{}})", a, b, sum, expected);
+        println!("As floats: {{:.1}} + {{:.1}} = {{:.1}}", 
+                from_fixed_point(a), from_fixed_point(b), from_fixed_point(sum));
+    }}
+}}

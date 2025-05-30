@@ -1,0 +1,36 @@
+struct i64{
+    bool sgn;
+    u64 v;
+}
+
+def i64_le(i64 lth, i64 rth) -> bool{
+    return if lth.sgn == true {
+        if rth.sgn == true {
+            lth.v <= rth.v
+        }else{
+            false
+        }
+    }else{
+        if rth.sgn == true{
+            true
+        }else{
+            lth.v > rth.v
+        }
+    };
+}
+
+def i64_add(i64 lth, i64 rth) -> i64{
+    return if lth.sgn == rth.sgn {
+        i64{sgn:lth.sgn, v: (lth.v + rth.v)}
+    }else{
+        if lth.v == rth.v {
+            i64{sgn:true, v: 0}
+        }else{
+            if lth.v < rth.v {
+                i64{sgn:rth.sgn, v: (rth.v - lth.v)}
+            }else{
+                i64{sgn:lth.sgn, v: (lth.v - rth.v)}
+            }
+        }
+    };
+}

@@ -1,0 +1,15 @@
+[package]
+name = "xgboost_prediction"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# No external dependencies - uses only Rust standard library with custom fixed-point arithmetic
+
+[lib]
+name = "xgboost_prediction"
+path = "src/lib.rs"
+
+[[bin]]
+name = "predict"
+path = "src/main.rs"

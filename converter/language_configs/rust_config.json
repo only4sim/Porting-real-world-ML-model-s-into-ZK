@@ -1,0 +1,47 @@
+{
+  "language": "rust",
+  "file_extension": ".rs",
+  "data_types": {
+    "fixed_point": {
+      "type_name": "i64",
+      "struct_definition": "",
+      "zero_value": "0i64",
+      "precision_multiplier": 10000000000
+    },
+    "boolean": "bool",
+    "array": "&[{}]"
+  },
+  "operators": {
+    "less_equal": {
+      "function_name": "fixed_le",
+      "call_format": "fixed_le({}, {})"
+    },
+    "add": {
+      "function_name": "fixed_add",
+      "call_format": "fixed_add({}, {})"
+    }
+  },
+  "control_structures": {
+    "if_condition": "if {} {{",
+    "else_clause": "}} else {{",
+    "end_block": "}}",
+    "assignment": "let {} = {};",
+    "mutable_declaration": "let mut {} = {};"
+  },
+  "function_syntax": {
+    "definition": "pub fn {}({}) -> {} {{",
+    "return": "{}",
+    "end_function": "}",
+    "private_param": "",
+    "public_param": ""
+  },
+  "comments": {
+    "single_line": "//",
+    "multi_line_start": "/*",
+    "multi_line_end": "*/"
+  },
+  "indentation": {
+    "type": "spaces",
+    "size": 4
+  }
+}

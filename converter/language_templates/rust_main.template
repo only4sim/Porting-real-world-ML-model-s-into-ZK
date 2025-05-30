@@ -1,0 +1,41 @@
+/// Main XGBoost prediction function
+/// 
+/// # Arguments
+/// * `features` - Input feature vector as slice of i64 values (scaled by 10^10)
+/// 
+/// # Returns
+/// * `i64` - Prediction result (scaled by 10^10 for precision)
+/// 
+/// # Example
+/// ```rust
+/// use rainfall_prediction::{{xgboost_predict, from_fixed_point}};
+/// 
+/// // Create a feature vector with {num_features} features (meteorological measurements)
+/// let mut features = vec![0i64; {num_features}]; // Initialize with zeros
+/// features[0] = 220286213;  // Example: scaled reflectivity value
+/// features[1] = 450000000;  // Example: scaled velocity value  
+/// features[2] = -180000000; // Example: scaled spectrum width value
+/// 
+/// let prediction = xgboost_predict(&features);
+/// println!("Prediction: {{}}", prediction);
+/// 
+/// // Convert back to floating point if needed
+/// let float_prediction = from_fixed_point(prediction);
+/// println!("Float prediction: {{:.6}} mm", float_prediction);
+/// ```
+pub fn xgboost_predict(features: &[i64]) -> i64 {{
+    // Ensure we have the expected number of features
+    assert!(features.len() >= {num_features}, 
+            "Expected at least {{}} features, got {{}}", {num_features}, features.len());
+    
+    // Features are already in fixed-point format (scaled by 10^10)
+    let f = features;
+    
+    // Initialize accumulator for tree predictions
+    let mut y = 0i64;
+    
+{tree_code}
+    
+    // Return result in fixed-point format
+    y
+}}

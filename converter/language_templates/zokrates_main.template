@@ -1,0 +1,7 @@
+def main(private i64[{num_features}] f) -> i64 {{
+    i64 mut y = i64{{sgn:true, v: 0}};
+    i64 mut x = i64{{sgn:true, v: 0}};
+
+{tree_code}
+    return y;
+}}

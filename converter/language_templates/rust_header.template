@@ -1,0 +1,69 @@
+// XGBoost Decision Tree Implementation in Rust
+// Uses custom fixed-point arithmetic with i64 for precision compatible with zero-knowledge proofs
+// All values are scaled by 10^10 for precision (maintaining compatibility with original implementation)
+
+/// Fixed-point arithmetic constants
+const PRECISION_MULTIPLIER: i64 = 10_000_000_000; // 10^10 for precision
+
+/// Fixed-point less-than-or-equal comparison
+/// 
+/// # Arguments
+/// * `a` - First value (scaled by 10^10)
+/// * `b` - Second value (scaled by 10^10)
+/// 
+/// # Returns
+/// * `bool` - true if a <= b
+#[inline]
+fn fixed_le(a: i64, b: i64) -> bool {
+    a <= b
+}
+
+/// Fixed-point addition with overflow protection
+/// 
+/// # Arguments
+/// * `a` - First value (scaled by 10^10)
+/// * `b` - Second value (scaled by 10^10)
+/// 
+/// # Returns
+/// * `i64` - Sum (scaled by 10^10), saturated on overflow
+#[inline]
+fn fixed_add(a: i64, b: i64) -> i64 {
+    a.saturating_add(b)
+}
+
+/// Convert floating-point value to fixed-point representation
+/// 
+/// # Arguments
+/// * `value` - Floating-point value
+/// 
+/// # Returns
+/// * `i64` - Fixed-point value (scaled by 10^10)
+#[inline]
+pub fn to_fixed_point(value: f64) -> i64 {
+    (value * PRECISION_MULTIPLIER as f64).round() as i64
+}
+
+/// Convert fixed-point value back to floating-point
+/// 
+/// # Arguments
+/// * `fixed_value` - Fixed-point value (scaled by 10^10)
+/// 
+/// # Returns
+/// * `f64` - Floating-point value
+#[inline]
+pub fn from_fixed_point(fixed_value: i64) -> f64 {
+    fixed_value as f64 / PRECISION_MULTIPLIER as f64
+}
+
+/// Create fixed-point value from pre-scaled integer (already multiplied by 10^10)
+/// This is used for values that are already in the correct scale from the training data
+/// 
+/// # Arguments
+/// * `scaled_value` - Pre-scaled integer value
+/// 
+/// # Returns
+/// * `i64` - Fixed-point value ready for computation
+#[inline]
+fn from_scaled_i64(scaled_value: i64) -> i64 {
+    scaled_value
+}

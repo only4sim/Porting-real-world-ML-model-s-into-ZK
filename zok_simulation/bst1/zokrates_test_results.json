@@ -1,0 +1,18 @@
+[
+    {
+        "program": "bst1_20.zok",
+        "compile_time": 5.348868370056152,
+        "circuit_size": 18360006,
+        "execution_time": 0.6773679256439209,
+        "proof_size": 923,
+        "verification_time": 0.06759142875671387
+    },
+    {
+        "program": "bst1_10.zok",
+        "compile_time": 2.580242395401001,
+        "circuit_size": 11422834,
+        "execution_time": 0.394895076751709,
+        "proof_size": 923,
+        "verification_time": 0.05675554275512695
+    }
+]

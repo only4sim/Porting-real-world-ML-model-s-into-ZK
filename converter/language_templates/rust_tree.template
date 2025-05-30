@@ -1,0 +1,5 @@
+    // Tree {tree_idx}
+    {{
+{tree_logic}
+        y = fixed_add(y, tree_result);
+    }}

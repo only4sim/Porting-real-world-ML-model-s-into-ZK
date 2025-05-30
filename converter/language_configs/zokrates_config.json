@@ -1,0 +1,47 @@
+{
+  "language": "zokrates",
+  "file_extension": ".zok",
+  "data_types": {
+    "fixed_point": {
+      "type_name": "i64",
+      "struct_definition": "struct i64{\n    bool sgn;\n    u64 v;\n}",
+      "zero_value": "i64{sgn:true, v: 0}",
+      "precision_multiplier": 10000000000
+    },
+    "boolean": "bool",
+    "array": "{}[{}]"
+  },
+  "operators": {
+    "less_equal": {
+      "function_name": "i64_le",
+      "call_format": "i64_le({}, {})"
+    },
+    "add": {
+      "function_name": "i64_add", 
+      "call_format": "i64_add({}, {})"
+    }
+  },
+  "control_structures": {
+    "if_condition": "if {} {{",
+    "else_clause": "}}else{{",
+    "end_block": "}}",
+    "assignment": "{} = {};",
+    "mutable_declaration": "{} mut {} = {};"
+  },
+  "function_syntax": {
+    "definition": "def {}({}) -> {} {{",
+    "return": "return {};",
+    "end_function": "}",
+    "private_param": "private",
+    "public_param": "public"
+  },
+  "comments": {
+    "single_line": "//",
+    "multi_line_start": "/*",
+    "multi_line_end": "*/"
+  },
+  "indentation": {
+    "type": "spaces",
+    "size": 4
+  }
+}

@@ -1,0 +1,31 @@
+[package]
+name = "rainfall_prediction"
+version = "0.1.0"
+edition = "2021"
+authors = ["XGBoost Converter <generated@ai.code>"]
+description = "Generated XGBoost rainfall prediction model in Rust"
+license = "MIT"
+
+[dependencies]
+# No external dependencies - uses only Rust standard library with custom fixed-point arithmetic
+
+[lib]
+name = "rainfall_prediction"
+path = "src/lib.rs"
+
+[[bin]]
+name = "predict"
+path = "src/main.rs"
+
+[[bin]]
+name = "build_test"
+path = "build_test.rs"
+
+[dev-dependencies]
+# Add testing dependencies if needed for extended testing
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
